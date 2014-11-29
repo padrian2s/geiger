@@ -1,0 +1,17 @@
+set title "Geiger Counter over the last two hours"
+unset multiplot
+set xdata time
+set style data lines  
+set term png size 1280,400
+set timefmt "%Y-%m-%d %H:%M"
+set format x "%H:\n%M"
+set xlabel "Time"
+set ylabel "per minute" 
+set autoscale y  
+set output "/var/www/a2h.png"
+set datafile separator ","
+
+set grid ytics lc rgb "#bbbbbb" lw 1 lt 0
+set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
+
+plot "/home/pi/accel2h.dat" using 2:1:(1.0) t "."  w l ls 1

@@ -1,0 +1,41 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          flickr
+# Required-Start:    $local_fs $all killprocs
+# Required-Stop:
+# Default-Start:     1
+# Default-Stop:
+# Short-Description: executed by init(8) upon entering runlevel 1 (single).
+### END INIT INFO
+
+
+. /lib/lsb/init-functions
+
+do_start () {
+	#PATH=/usr/bin:/home/pi/folder2flickr:/sbin
+	mount -t cifs //192.168.0.100/photo /home/pi/zyxel/ -o password=*****
+	log_action_msg "starting folder2flickr"
+	cd /home/pi/folder2flickr
+#	exec -a folder2flickr nohup python uloadr.py
+#	date=`date +"%Y%M%d_%H%m"`
+#	make $date
+#	mv *.log $date
+	sudo start-stop-daemon --start --pidfile /home/pi/flickr.pid --name folder2flickr --exec /home/pi/folder2flickr/runsup
+}
+
+case "$1" in
+  start)
+	do_start
+	;;
+  restart|reload|force-reload)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	kill `pidof folder2flickr`
+	;;
+  *)
+	echo "Usage: $0 start|stop" >&2
+	exit 3
+	;;
+esac
