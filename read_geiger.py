@@ -3,15 +3,17 @@ import datetime
 import time
 
 import smtplib
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
 
 fromaddr = 'geigercounter2ss@gmail.com'
 toaddrs  = 'adrian.paleacu@gmail.com'
-msg = 'myRandom generator registered values above 40:'
+msg = "myRandom generator registered values above 40:"
 
 
 # Credentials (if needed)
 username = 'geigercounter2ss@gmail.com'
-password = '******'
+password = '***********'
 
 
 addr  = '/dev/ttyACM0'
@@ -38,7 +40,12 @@ with serial.Serial(addr,baud) as port, open(fname,fmode) as outf:
 	    server = smtplib.SMTP('smtp.gmail.com:587')
 	    server.starttls()
 	    server.login(username,password)
-	    server.sendmail(fromaddr, toaddrs, msg+" "+str(t))
+
+	    mm = MIMEMultipart()
+	    mm['Subject'] = 'GCM above 40:'+str(t)
+	    mm['From'] = fromaddr
+	    mm['To'] = toaddrs
+	    server.sendmail(fromaddr, toaddrs, mm.as_string())
 	    server.quit()
           t = 0
 
