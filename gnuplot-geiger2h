@@ -14,4 +14,4 @@ set datafile separator ","
 set grid ytics lc rgb "#bbbbbb" lw 1 lt 0
 set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
 
-plot "/home/pi/accel2h.dat" using 2:1:(1.0) t "."  w l ls 1
+plot "/home/a/accel2h.dat" using 2:1:(1.0) t "."  w l ls 1

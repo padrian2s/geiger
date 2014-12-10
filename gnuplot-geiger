@@ -16,4 +16,4 @@ set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
 
 #set palette defined (1 "blue", 40 "red", 10 "blue")
 set style line 1 lt 1 lw 1 pt 3 linecolor rgb "blue"
-plot "/home/pi/accel.dat" using 2:1:(0.001) t "inbound" smooth sbezier
+plot "/home/a/accel.dat" using 2:1:(0.001) t "inbound" smooth sbezier
